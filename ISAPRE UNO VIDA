@@ -1,0 +1,71 @@
+import random
+
+afiliados = []
+contador_id = 1
+
+while True:
+    print("\n--- Menú Principal ---")
+    print("1. Ingresar nuevo afiliado")
+    print("2. Buscar afiliado por RUT")
+    print("3. Imprimir certificados")
+    print("4. Salir")
+    
+    try:
+        opcion = int(input("Seleccione una opción (1-4): "))
+        
+        if opcion == 1:
+            print("\n--- Ingresar nuevo afiliado ---")
+            
+            # Validación de nombre
+            while True:
+                nombre = input("Nombre completo: ").strip()
+                if nombre.replace(" ", "").replace(".", "").isalpha():
+                    break
+                print("Error: El nombre debe contener solo letras y espacios.")
+            
+            # Validación de RUT
+            while True:
+                rut = input("RUT (sin puntos, con guión): ").strip().upper()
+                partes = rut.split("-")
+                if len(partes) == 2 and partes[0].isdigit() and (partes[1].isdigit() or partes[1] == "K"):
+                    if 5000000 < int(partes[0]) < 30000000:
+                        break
+                    else:
+                        print("Error: DEBE INGRESAR UN RUT VALIDO")
+                else:
+                    print("Error: Formato RUT inválido. Ejemplo: 12345678-9 o 12345678-K")
+            
+            # Validación de edad
+            while True:
+                try:
+                    edad = int(input("Edad: "))
+                    if 18 < edad < 120:
+                        break
+                    print("Error: Edad debe ser mayor a 18 años.")
+                except ValueError:
+                    print("Error: Debe ingresar un número válido para la edad.")
+            
+            # Validación de estado civil
+            while True:
+                print("Opciones: Soltero, Casado, Divorciado, Viudo")
+                estado_civil = input("Estado civil: ").strip().capitalize()
+                if estado_civil in ["Soltero", "Casado", "Divorciado", "Viudo"]:
+                    break
+                print("Error: Estado civil inválido. Elija entre las opciones válidas.")
+            
+            # Generar monto aleatorio
+            monto = random.randint(1000, 1500)
+            
+            # Guardar afiliado
+            afiliado = {
+                "id": contador_id,
+                "nombre": nombre,
+                "rut": rut,
+                "edad": edad,
+                "estado_civil": estado_civil,
+                "monto": monto
+            }
+            
+            afiliados.append(afiliado)
+            contador_id += 1
+            print(f"Afiliado {nombre} registrado exitosamente con ID {afiliado['id']}")
