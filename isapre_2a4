@@ -1,0 +1,37 @@
+# isapre
+isapre uno vida 
+
+
+def validar_lista_numeros(n_ingresar):
+    numeros = n_ingresar.split()#separamos por espacio los valores en la lista
+    lista = []  #creamos una lista vacia
+    for num in numeros:#recorremos la lista
+        es_numero = True
+        # recorremos cada caracter para ver si todos son digitos
+        for validar in num:
+            if validar < '0' or validar > '9': #el valor ingresado no es numero 
+                es_numero = False  # si encontramos un caracter que no es digito, marcamos como falso
+        
+        if es_numero and num != "":
+            lista.append(int(num))# si es un numero y no esta vacio, lo agregamos a la lista
+        else:
+            print("Error: solo se permiten numeros enteros positivos.")#mensaje de que solo se deven ingresar numeros positivos
+            return False #entregamos el retorno para el mensaje que no es un numero positivo
+
+    pares = [] #creamos la lista vacia de los numeros pares
+    impares = [] #creamos la lista vacia para los numeros impares
+    # separamos pares e impares
+    for n in lista: #recorremos la lista con los valores seleccionados como positivos
+        if n % 2 == 0: # separamos los valores con mod para ver cual es par
+            pares.append(n)#guardamos los pares
+        else:
+            impares.append(n)#los que no fueron separados por el mod y siguen siendo positivos los guardamos en los impar
+    print("nuos pares:", pares)
+    print("numeros imparesares: ", impares) #imprimimos los valores de los numeros pares e impares
+    return True #entregamos el retorno de los valores seleccionados con su separacion en sus listas
+
+# main: pide numeros hasta que la entrada sea valida 
+while True:
+    n_ingresar = input("ingrese numeros separados por espacios: ") #lista de numeros ingresados por un espacio 
+    if validar_lista_numeros(n_ingresar):
+        break
